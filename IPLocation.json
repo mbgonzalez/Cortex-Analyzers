@@ -1,11 +1,11 @@
 {
-    "name": "IP-Location",
-    "version": "1.0",
-    "author": "mbgonzalez",
-    "url": "https://github.com/mbgonzalez/IPLocation",
-    "license": "AGPL-v3",
-    "description": "Determina la ubicacion de una IP con el sitio IP Location net",
-    "dataTypeList": ["ip"],
-    "baseConfig": "IPLocation",
-    "command": "IPLocation/IPLocation.py",
+  "name": "IPLocation",
+  "version": "1.0",
+  "author": "mbgonzalez",
+  "url": "https://github.com/mbgonzalez/IPLocation",
+  "license": "AGPL-V3",
+  "description": "Check IP address on IPLocation",
+  "dataTypeList": ["ip"],
+  "baseConfig": "IPLocation",
+  "command": "/opt/Custom/analyzers/IPLocation/IPLocation.py"
 }
