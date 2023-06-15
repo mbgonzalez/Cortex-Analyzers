@@ -3,24 +3,31 @@ from cortexutils.analyzer import Analyzer
 import requests
 
 class IPLocation(Analyzer):
-    def __init__(self):
-        Analyzer.__init__(self)
+
+    def summary(self, raw):
+        taxonomies = []
+        level = 'safe'
+        namespace = 'IPLocation'
+        predicate = 'Pais'
+        value = "N/A"
+        if "country_name" in raw:
+            value = "{}".format(raw["country_name"])
+        taxonomies.append(self.build_taxonomy(level, namespace, predicate, value))
+        return {'taxonomies': taxonomies}
 
     def run(self):
         Analyzer.run(self)
-        if self.data_type == "ip":
-            observable = self.get_data()
-            url = f"https://api.iplocation.net/?ip={observable}"
-            respuesta = requests.get(url)
 
-            if respuesta.status_code == 200:
-                return respuesta.json()
-            else:
-                print("No se pudo realizar la consulta IP Location.")
-                return None
+        observable = self.get_data()
+        query = f"https://api.iplocation.net/?ip={observable}"
+        respuesta = requests.get(query)
+
+        if respuesta.status_code == 200:
+            self.report(respuesta.json())
+
+
         else:
-            self.notSupported()
+            self.report("No se pudo obtener la información")
 
-  
 if __name__ == '__main__':
     IPLocation().run()
